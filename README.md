@@ -1,73 +1,86 @@
-# Welcome to your Lovable project
 
-## Project info
+# 🤖 CNCF-Architect Pro: Universal AI Repository Agent
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+**CNCF-Architect Pro** is a repository-agnostic autonomous agent designed to streamline open-source onboarding and project analysis. Built as a Capstone Project for the **Microsoft Elevate AICTE Internship (2026)**, it utilizes **Gemini 1.5 Flash** to analyze any public GitHub repository and provide structured, actionable intelligence.
+## 🔗 Live Demo
+**Project URL:** [https://universal-repo-explorer-ai.vercel.app](https://universal-repo-explorer-ai.vercel.app)
 
-## How can I edit this code?
+## 📖 About the Project: How it Works
+This project implements a **Deterministic Agentic Loop** to solve the problem of developer onboarding in complex ecosystems. Unlike standard LLM chatbots, this agent achieves its results through:
 
-There are several ways of editing your application.
+1. **Autonomous Tooling:** The agent does not "guess." It uses a **ReAct (Reasoning and Acting)** framework to call specific GitHub API tools to gather raw data before responding.
+2. **Context Injection:** It fetches the raw `README.md` and repo metadata, injecting this live context into the **Gemini 1.5 Flash** context window, ensuring the analysis is never based on outdated training data.
+3. **Automated Scoring:** It uses a weighted algorithm to evaluate repository health by analyzing real-time telemetry (commit frequency, issue-to-star ratio, and active maintainer labels).
+## 🚀 Key Features
 
-**Use Lovable**
+* **Autonomous Tool Orchestration:** Unlike simple chatbots, this agent uses **Function Calling** to programmatically fetch live telemetry from the GitHub REST API.
+* **Universal Repo Exploration:** Seamlessly analyzes any public repository to extract tech stacks, architectural patterns, and onboarding guides.
+* **CloudNative Maturity Scoring:** Implements a custom algorithm to calculate a **Maturity Score (0-100)** based on repository velocity, documentation quality, and ecosystem trust.
+* **Contributor Roadmap:** Specifically identifies `good first issue` and `help wanted` labels to generate a step-by-step roadmap for new contributors.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Tech Stack
 
-**Use your preferred IDE**
+* **LLM Engine:** Google Gemini 1.5 Flash (via `@ai-sdk/google`)
+* **Framework:** Next.js 15 (App Router), TypeScript, Tailwind CSS
+* **Agentic Logic:** Vercel AI SDK for deterministic tool calling
+* **Deployment:** Vercel Edge Runtime for low-latency streaming
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🧠 The Agentic Algorithm
 
-Follow these steps:
+The system follows a **ReAct (Reasoning and Acting)** pattern:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. **Analyze:** The agent parses the user's repository URL or name.
+2. **Act:** It triggers three concurrent tools:
+* `analyzeRepo`: Fetches and summarizes raw README content.
+* `fetchIssues`: Scans for beginner-friendly labels.
+* `fetchRepoStats`: Retrieves stars, forks, and update frequency.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. **Synthesize:** The LLM evaluates the gathered data against CNCF maturity standards to produce a structured analysis card.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+---
+
+## 📦 Getting Started
+
+### 1. Prerequisites
+
+* Node.js 18+
+* Google AI Studio API Key (Gemini)
+
+### 2. Installation
+
+```bash
+git clone https://github.com/RoushniSinha/universal-repo-explorer-ai.git
+cd universal-repo-explorer-ai
+npm install
+
 ```
 
-**Edit a file directly in GitHub**
+### 3. Environment Setup
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Create a `.env.local` file in the root:
 
-**Use GitHub Codespaces**
+```env
+GOOGLE_GENERATIVE_AI_API_KEY=your_key_here
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
 
-## What technologies are used for this project?
+### 4. Run Locally
 
-This project is built with:
+```bash
+npm run dev
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## 📄 License & Acknowledgments
 
-## Can I connect a custom domain to my Lovable project?
+Developed as part of the **MCA Capstone Project** and the **MS Elevate AICTE Internship**.
 
-Yes, you can!
+**GitHub Link:** [https://github.com/RoushniSinha/universal-repo-explorer-ai](https://www.google.com/search?q=https://github.com/RoushniSinha/universal-repo-explorer-ai)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
