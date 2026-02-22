@@ -5,6 +5,10 @@
 ## 🔗 Live Demo
 **Project URL:** [https://universal-repo-explorer-ai.vercel.app](https://universal-repo-explorer-ai.vercel.app)
 
+
+![CNCF-Architect Dashboard](https://github.com/RoushniSinha/universal-repo-explorer-ai/blob/main/public/ms%20project%20result%203.png)
+![result](https://github.com/RoushniSinha/universal-repo-explorer-ai/blob/3ee09397f726f37f0d3e4374d0e055ab4e1ffbd6/public/ms%20project%20result%205.png)
+
 ## 📖 About the Project: How it Works
 This project implements a **Deterministic Agentic Loop** to solve the problem of developer onboarding in complex ecosystems. Unlike standard LLM chatbots, this agent achieves its results through:
 
