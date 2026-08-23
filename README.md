@@ -111,3 +111,37 @@ SUPABASE_URL=...
 SUPABASE_SERVICE_ROLE_KEY=...
 LOVABLE_API_KEY=...
 ```
+
+## 🧵 Async Queue Processing (Phase 3: Kafka + Worker + Retry/DLQ)
+
+Phase 3 adds asynchronous analysis orchestration using Kafka topics and a dedicated worker:
+
+- `enqueue-analysis` (Edge Function): validates request, persists `analysis_requests`, creates `analysis_queue_jobs`, and publishes to Kafka.
+- `analysis-worker` (Edge Function): processes a queued job, runs repository analysis, updates persistence tables, retries on transient failures, and routes terminal failures to DLQ.
+- New database tables:
+  - `analysis_queue_jobs`
+  - `analysis_dead_letter_events`
+
+### Required Phase 3 secrets
+
+```bash
+KAFKA_REST_URL=...
+KAFKA_USERNAME=...            # optional
+KAFKA_PASSWORD=...            # optional
+KAFKA_TOPIC_MAIN=analysis-jobs
+KAFKA_TOPIC_RETRY=analysis-jobs-retry
+KAFKA_TOPIC_DLQ=analysis-jobs-dlq
+ANALYSIS_MAX_ATTEMPTS=3
+ANALYSIS_RETRY_BASE_DELAY_SECONDS=30
+WORKER_SHARED_SECRET=...      # optional but recommended
+```
+
+### Recommended flow
+
+1. Client calls `enqueue-analysis` with `owner/repo` (+ optional `x-idempotency-key`).
+2. Kafka consumer invokes `analysis-worker` for each message in main/retry topics.
+3. Worker:
+   - marks job `processing`
+   - completes analysis and marks `completed`, or
+   - publishes to retry topic (attempt < max), or
+   - publishes to DLQ and records `analysis_dead_letter_events` (attempt >= max).
