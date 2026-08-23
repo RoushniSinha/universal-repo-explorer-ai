@@ -1,4 +1,13 @@
 project_id = "hlamrsmsfhycnlqmocfm"
 
 [functions.analyze-repo]
+verify_jwt = true
+
+[functions.get-analyses]
+verify_jwt = true
+
+[functions.enqueue-analysis]
+verify_jwt = true
+
+[functions.analysis-worker]
 verify_jwt = false
