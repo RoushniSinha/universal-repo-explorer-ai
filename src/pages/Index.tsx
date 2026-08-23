@@ -97,6 +97,7 @@ const Index = () => {
     }
 
     const [, owner, repo] = match;
+    const idempotencyKey = `${owner.toLowerCase()}:${repo.toLowerCase()}`;
     setIsLoading(true);
 
     try {
@@ -104,6 +105,7 @@ const Index = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-idempotency-key": idempotencyKey,
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
         body: JSON.stringify({ owner, repo }),
@@ -147,8 +149,8 @@ const Index = () => {
           }
         }
       }
-    } catch (e: any) {
-      const msg = e.message || "Something went wrong";
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Something went wrong";
       setError(msg);
       toast({ title: "Error", description: msg, variant: "destructive" });
     } finally {

@@ -91,3 +91,23 @@ Developed as part of the **MCA Capstone Project** and the **MS Elevate AICTE Int
 
 **GitHub Link:** [https://github.com/RoushniSinha/universal-repo-explorer-ai](https://www.google.com/search?q=https://github.com/RoushniSinha/universal-repo-explorer-ai)
 
+
+
+## 🔐 Backend Security & Persistence (Phase 1/2)
+
+This project now includes hardened Supabase Edge Functions and persistence tables:
+
+- `analyze-repo` requires JWT verification and supports request idempotency (`x-idempotency-key`).
+- `get-analyses` exposes recent analysis history for a given `owner/repo`.
+- Supabase migration adds:
+  - `analysis_requests`
+  - `analysis_idempotency_keys`
+  - `agent_event_logs`
+
+### Required Supabase Edge Function secrets
+
+```bash
+SUPABASE_URL=...
+SUPABASE_SERVICE_ROLE_KEY=...
+LOVABLE_API_KEY=...
+```
